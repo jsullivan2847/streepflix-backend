@@ -37,7 +37,7 @@ app.get('/', async (req, res) => {
         res.send(usersData)
     } catch (err) {
         console.log('error', err)
-        res.send('something went wrong- check logs')
+        res.send({error: 'something went wrong- check logs'})
     }
 })
 
@@ -56,10 +56,32 @@ app.get('/user', async (req, res) => {
 // Create route
 app.post('/user', async (req, res) => {
     try {
-        const singleUser = await User.create(req.body)
-        res.send(singleUser)
+        const createdUser = await User.create(req.body)
+        res.send(createdUser)
     } catch (err) {
-        console.log('error', error) 
+        console.log('error', err) 
+        res.send({error: 'Something went wrong - check logs'})
+    }
+})
+
+// Update route
+app.put('/user/:id', async (req, res) => {
+    try {
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true})
+        res.send(updatedUser)
+    } catch (err) {
+        console.log('error', err)
+        res.send({error: 'something went wrong - check logs'})
+    }
+})
+
+// Delete route
+app.delete('/user/:id', async (req, res) => {
+    try {
+        const deletedUser = await User.findByIdAndDelete(req.params.id)
+        res.send(deletedUser)
+    } catch (err) {
+        console.log('error', err)
         res.send({error: 'Something went wrong - check logs'})
     }
 })
