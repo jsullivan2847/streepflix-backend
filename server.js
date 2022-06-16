@@ -31,6 +31,39 @@ const User = mongoose.model('User', userSchema)
 
 // Routes
 
+// test route
+app.get('/', async (req, res) => {
+    try {
+        res.send(usersData)
+    } catch (err) {
+        console.log('error', err)
+        res.send('something went wrong- check logs')
+    }
+})
+
+// Index Route
+app.get('/user', async (req, res) => {
+    try {
+        const user = await User.find({})
+        res.send(user)
+    } catch (err) {
+        console.log('error', err)
+        res.send({error: 'Something went wrong - check logs'})
+    }
+})
+
+
+// Create route
+app.post('/user', async (req, res) => {
+    try {
+        const singleUser = await User.create(req.body)
+        res.send(singleUser)
+    } catch (err) {
+        console.log('error', error) 
+        res.send({error: 'Something went wrong - check logs'})
+    }
+})
+
 
 
 // listener
