@@ -31,7 +31,7 @@ const listSchema = new mongoose.Schema({
 const userSchema = new mongoose.Schema({
     name: String,
     image: {type: String, required: true},
-    list: [{listSchema}]
+    list: {listSchema}
 })
 
 const User = mongoose.model('User', userSchema)
