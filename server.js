@@ -20,10 +20,18 @@ mongoose.connection
 .on('connected', () => console.log('MongoDB is connected'))
 .on('error', (err) => console.log(`Error with MongoDB ${err.mesasge}`))
 
+// favorite Schema
+const listSchema = new mongoose.Schema({
+    title: String,
+    image: String,
+    plot: String, 
+});
+
 // setup user profile model
 const userSchema = new mongoose.Schema({
     name: String,
-    image: String
+    image: {type: String, required: true},
+    list: [listSchema]
 })
 
 const User = mongoose.model('User', userSchema)
